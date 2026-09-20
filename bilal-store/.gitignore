@@ -33,7 +33,7 @@ test.php
 
 # Composer (in case anyone adds it later)
 /vendor/
-composer.lock
+
 
 # Node (in case anyone adds it later)
 /node_modules/
