@@ -25,7 +25,10 @@ pipeline {
                         passwordVariable: 'AWS_SECRET_ACCESS_KEY'
                     )
                 ]) {
-                    sh 'aws sts get-caller-identity --region ap-south-1'
+                    sh '''
+                        aws sts get-caller-identity \
+                            --region ap-south-1
+                    '''
                 }
             }
         }
@@ -42,15 +45,22 @@ pipeline {
                     sh '''
                         ECR_REGISTRY=016617991046.dkr.ecr.ap-south-1.amazonaws.com
                         ECR_REPOSITORY=bilal-store
+                        IMAGE_TAG=$(git rev-parse --short HEAD)
 
-                        aws ecr get-login-password --region ap-south-1 |
-                        docker login --username AWS --password-stdin $ECR_REGISTRY
+                        echo "Building image tag: $IMAGE_TAG"
 
-                        docker tag bilal-store:latest \
-                            $ECR_REGISTRY/$ECR_REPOSITORY:latest
+                        aws ecr get-login-password \
+                            --region ap-south-1 |
+                        docker login \
+                            --username AWS \
+                            --password-stdin $ECR_REGISTRY
+
+                        docker tag \
+                            bilal-store:latest \
+                            $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
                         docker push \
-                            $ECR_REGISTRY/$ECR_REPOSITORY:latest
+                            $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
                     '''
                 }
             }
@@ -67,25 +77,35 @@ pipeline {
                 ]) {
                     sh '''
                         ECR_REGISTRY=016617991046.dkr.ecr.ap-south-1.amazonaws.com
-                        ECR_IMAGE=$ECR_REGISTRY/bilal-store:latest
+                        IMAGE_TAG=$(git rev-parse --short HEAD)
+                        ECR_IMAGE=$ECR_REGISTRY/bilal-store:$IMAGE_TAG
                         EC2_HOST=13.206.207.2
+
+                        echo "Deploying image: $ECR_IMAGE"
 
                         ssh \
                             -o StrictHostKeyChecking=no \
                             -o UserKnownHostsFile=/dev/null \
                             -i "$SSH_KEY" \
                             "$SSH_USER@$EC2_HOST" "
-                                aws ecr get-login-password --region ap-south-1 |
-                                docker login --username AWS --password-stdin $ECR_REGISTRY &&
+                                aws ecr get-login-password \
+                                    --region ap-south-1 |
+                                docker login \
+                                    --username AWS \
+                                    --password-stdin \
+                                    $ECR_REGISTRY &&
+
                                 docker pull $ECR_IMAGE &&
+
                                 docker stop bilal-store-app || true &&
                                 docker rm bilal-store-app || true &&
+
                                 docker run -d \
-                                  --name bilal-store-app \
-                                  --restart unless-stopped \
-                                  -p 80:80 \
-                                  --env-file /opt/bilal-store/.env \
-                                  $ECR_IMAGE
+                                    --name bilal-store-app \
+                                    --restart unless-stopped \
+                                    -p 80:80 \
+                                    --env-file /opt/bilal-store/.env \
+                                    $ECR_IMAGE
                             "
                     '''
                 }
