@@ -250,13 +250,22 @@ Jenkins Successful Pipeline
 ![Jenkins Pipeline](screenshots/pipeline.png)
 
 
-Repository Structure
+## Repository Structure
 
+```text
 legacy-ecommerce-cloud-modernization/
 │
 ├── Jenkinsfile
-├── docs/
-│   └── architecture.png
+├── screenshots/
+│       ├── aws-infrastructure.png
+│       ├── rds-database.png
+│       ├── ecr-repository.png
+│       ├── ec2-docker.png
+│       ├── s3-bucket.png
+│       ├── cloudwatch-dashboard.png
+│       ├── cloudwatch-alarms.png
+│       ├── jenkins-pipeline.png
+│       └── jenkins-auto-trigger.png
 │
 ├── bilal-store/
 │   ├── Dockerfile
@@ -269,47 +278,9 @@ legacy-ecommerce-cloud-modernization/
 │
 └── app-infrastucture/
     ├── terraform/
-    │   ├── provider.tf
-    │   ├── variables.tf
-    │   ├── vpc.tf
-    │   ├── ec2.tf
-    │   ├── rds.tf
-    │   ├── iam.tf
-    │   ├── ecr.tf
-    │   ├── s3.tf
-    │   ├── cloudwatch.tf
-    │   └── outputs.tf
-    │
     └── ansible/
-        ├── inventory.ini
-        ├── playbook.yml
-        ├── deploy.yml
-        └── secrets.yml
-
-secrets.yml is encrypted with Ansible Vault and must never be committed in plaintext.
 
 
-✅ Final Result
-
-The project turns a manually deployed legacy application into a more repeatable cloud deployment workflow:
-
-Code
-  ↓
-GitHub
-  ↓
-Jenkins
-  ↓
-Docker
-  ↓
-ECR
-  ↓
-EC2
-  ↓
-RDS
-
-with Terraform, Ansible, IAM, S3, CloudWatch, and SNS supporting the infrastructure, configuration, security, storage, and monitoring layers.
-
-The main outcome is a repeatable source-to-deployment workflow with infrastructure automation and operational monitoring, rather than simply moving the application onto an AWS server.
 
 
 
