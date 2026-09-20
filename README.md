@@ -280,10 +280,7 @@ legacy-ecommerce-cloud-modernization/
     ├── terraform/
     └── ansible/
 
-
-
-
-###10. Final result
+'''text
 
 ```markdown
 ## Final Result
@@ -313,6 +310,8 @@ EC2
              |
              v
             SNS
+
+'''text
 
 
 Terraform manages the infrastructure, Ansible manages server configuration, and Jenkins automates application delivery.
