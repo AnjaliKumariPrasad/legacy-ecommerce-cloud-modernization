@@ -249,43 +249,67 @@ Jenkins Successful Pipeline
 
 ![Jenkins Pipeline](screenshots/pipeline.png)
 
-------
 
-nv permission denied
+Repository Structure
 
-Linux file ownership/permissions matter
+legacy-ecommerce-cloud-modernization/
+│
+├── Jenkinsfile
+├── docs/
+│   └── architecture.png
+│
+├── bilal-store/
+│   ├── Dockerfile
+│   ├── composer.json
+│   ├── composer.lock
+│   ├── admin/
+│   ├── assets/
+│   ├── config/
+│   └── includes/
+│
+└── app-infrastucture/
+    ├── terraform/
+    │   ├── provider.tf
+    │   ├── variables.tf
+    │   ├── vpc.tf
+    │   ├── ec2.tf
+    │   ├── rds.tf
+    │   ├── iam.tf
+    │   ├── ecr.tf
+    │   ├── s3.tf
+    │   ├── cloudwatch.tf
+    │   └── outputs.tf
+    │
+    └── ansible/
+        ├── inventory.ini
+        ├── playbook.yml
+        ├── deploy.yml
+        └── secrets.yml
 
-📸 Screenshots
+secrets.yml is encrypted with Ansible Vault and must never be committed in plaintext.
 
-AWS Infrastructure
 
-[Add screenshot]
+✅ Final Result
 
-RDS / Database Migration
+The project turns a manually deployed legacy application into a more repeatable cloud deployment workflow:
 
-[Add screenshot]
+Code
+  ↓
+GitHub
+  ↓
+Jenkins
+  ↓
+Docker
+  ↓
+ECR
+  ↓
+EC2
+  ↓
+RDS
 
-ECR Image
+with Terraform, Ansible, IAM, S3, CloudWatch, and SNS supporting the infrastructure, configuration, security, storage, and monitoring layers.
 
-[Add screenshot]
+The main outcome is a repeatable source-to-deployment workflow with infrastructure automation and operational monitoring, rather than simply moving the application onto an AWS server.
 
-EC2 Docker Container
 
-[Add screenshot]
-
-S3
-
-[Add screenshot]
-
-CloudWatch Dashboard
-
-[Add screenshot]
-
-CloudWatch Alarms / SNS
-
-[Add screenshot]
-
-Jenkins Successful Pipeline
-
-[Add screenshot]
 
