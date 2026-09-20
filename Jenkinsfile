@@ -17,41 +17,43 @@ pipeline {
         }
 
         stage('Test AWS Authentication') {
-          steps {
-              withCredentials([
-                  usernamePassword(
-                      credentialsId: 'jenkins-connection',
-                      usernameVariable: 'AWS_ACCESS_KEY_ID',
-                      passwordVariable: 'AWS_SECRET_ACCESS_KEY'
-                  )
-              ]) {
-                  sh 'aws sts get-caller-identity   --region ap-south-1'
-              }
-          }
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'aws-ecr',
+                        usernameVariable: 'AWS_ACCESS_KEY_ID',
+                        passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+                    )
+                ]) {
+                    sh 'aws sts get-caller-identity --region ap-south-1'
+                }
+            }
         }
 
         stage('Push Image to ECR') {
-          steps {
-              withCredentials([
-                  usernamePassword(
-                      credentialsId: 'jenkins-connection',
-                      usernameVariable: 'AWS_ACCESS_KEY_ID',
-                      passwordVariable: 'AWS_SECRET_ACCESS_KEY'
-                  )
-              ]) {
-                  sh '''
-                      ECR_REGISTRY=016617991046.dkr.ecr.ap-south-1.amazonaws.com
-                      ECR_REPOSITORY=bilal-store
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'aws-ecr',
+                        usernameVariable: 'AWS_ACCESS_KEY_ID',
+                        passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+                    )
+                ]) {
+                    sh '''
+                        ECR_REGISTRY=016617991046.dkr.ecr.ap-south-1.amazonaws.com
+                        ECR_REPOSITORY=bilal-store
 
-                      aws ecr get-login-password --region ap-south-1 |
-                      docker login --username AWS --password-stdin $ECR_REGISTRY
+                        aws ecr get-login-password --region ap-south-1 |
+                        docker login --username AWS --password-stdin $ECR_REGISTRY
 
-                      docker tag bilal-store:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
+                        docker tag bilal-store:latest \
+                            $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
-                      docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-                  '''
-              }
-          }
+                        docker push \
+                            $ECR_REGISTRY/$ECR_REPOSITORY:latest
+                    '''
+                }
+            }
         }
 
         stage('Deploy to EC2') {
@@ -68,7 +70,8 @@ pipeline {
                         ECR_IMAGE=$ECR_REGISTRY/bilal-store:latest
                         EC2_HOST=13.206.207.2
 
-                        ssh -o StrictHostKeyChecking=no \
+                        ssh \
+                            -o StrictHostKeyChecking=no \
                             -o UserKnownHostsFile=/dev/null \
                             -i "$SSH_KEY" \
                             "$SSH_USER@$EC2_HOST" "
