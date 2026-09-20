@@ -283,4 +283,38 @@ legacy-ecommerce-cloud-modernization/
 
 
 
+###10. Final result
 
+```markdown
+## Final Result
+
+The legacy application now follows a repeatable deployment workflow:
+
+```text
+GitHub
+   |
+   v
+Jenkins
+   |
+   v
+Docker
+   |
+   v
+ECR
+   |
+   v
+EC2
+   |
+   +--> RDS
+   |
+   +--> S3
+   |
+   +--> CloudWatch
+             |
+             v
+            SNS
+
+
+Terraform manages the infrastructure, Ansible manages server configuration, and Jenkins automates application delivery.
+
+The result is a repeatable source-to-deployment workflow with infrastructure automation, security controls, and operational monitoring.
