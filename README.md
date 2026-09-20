@@ -1,0 +1,4 @@
+Jenkins automatic trigger test
+
+
+
