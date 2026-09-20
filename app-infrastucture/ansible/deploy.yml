@@ -42,8 +42,8 @@
           DB_PASS={{ db_password }}
           AWS_REGION={{ aws_region }}
           S3_BUCKET={{ s3_bucket }}
-        owner: root
-        group: root
+        owner: ubuntu
+        group: ubuntu
         mode: "0600"
 
     - name: Run Bilal Store container
