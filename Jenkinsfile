@@ -16,5 +16,19 @@ pipeline {
             }
         }
 
+        stage('Test AWS Authentication') {
+          steps {
+              withCredentials([
+                  usernamePassword(
+                      credentialsId: 'aws-ecr',
+                      usernameVariable: 'AWS_ACCESS_KEY_ID',
+                      passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+                  )
+              ]) {
+                  sh 'aws sts get-caller-identity   --region ap-south-1'
+              }
+          }
+      }
+
     }
 }
