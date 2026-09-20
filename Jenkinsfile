@@ -54,5 +54,40 @@ pipeline {
           }
         }
 
+        stage('Deploy to EC2') {
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: 'ec2-ssh',
+                        keyFileVariable: 'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    )
+                ]) {
+                    sh '''
+                        ECR_REGISTRY=016617991046.dkr.ecr.ap-south-1.amazonaws.com
+                        ECR_IMAGE=$ECR_REGISTRY/bilal-store:latest
+                        EC2_HOST=13.206.207.2
+
+                        ssh -o StrictHostKeyChecking=no \
+                            -o UserKnownHostsFile=/dev/null \
+                            -i "$SSH_KEY" \
+                            "$SSH_USER@$EC2_HOST" "
+                                aws ecr get-login-password --region ap-south-1 |
+                                docker login --username AWS --password-stdin $ECR_REGISTRY &&
+                                docker pull $ECR_IMAGE &&
+                                docker stop bilal-store-app || true &&
+                                docker rm bilal-store-app || true &&
+                                docker run -d \
+                                  --name bilal-store-app \
+                                  --restart unless-stopped \
+                                  -p 80:80 \
+                                  --env-file /opt/bilal-store/.env \
+                                  $ECR_IMAGE
+                            "
+                    '''
+                }
+            }
+        }
+
     }
 }
