@@ -20,7 +20,7 @@ pipeline {
           steps {
               withCredentials([
                   usernamePassword(
-                      credentialsId: 'aws-ecr',
+                      credentialsId: 'jenkins-connection',
                       usernameVariable: 'AWS_ACCESS_KEY_ID',
                       passwordVariable: 'AWS_SECRET_ACCESS_KEY'
                   )
@@ -34,7 +34,7 @@ pipeline {
           steps {
               withCredentials([
                   usernamePassword(
-                      credentialsId: 'aws-ecr',
+                      credentialsId: 'jenkins-connection',
                       usernameVariable: 'AWS_ACCESS_KEY_ID',
                       passwordVariable: 'AWS_SECRET_ACCESS_KEY'
                   )
