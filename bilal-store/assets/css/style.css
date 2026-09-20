@@ -1,0 +1,305 @@
+/* ==========================================================
+   PHP Admin Panel — custom styles
+   ========================================================== */
+
+:root {
+    --sidebar-width: 260px;
+    --topbar-height: 64px;
+    --brand:          #4f46e5;
+    --brand-dark:     #4338ca;
+    --bg:             #f5f7fb;
+    --card-shadow:    0 1px 3px rgba(15, 23, 42, .06),
+                      0 1px 2px rgba(15, 23, 42, .04);
+}
+
+[data-bs-theme="dark"] {
+    --bg: #0f172a;
+    --card-shadow: 0 1px 3px rgba(0,0,0,.4);
+}
+
+html, body { height: 100%; }
+body {
+    background: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---------- Auth pages (login/register) ---------- */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    padding: 1rem;
+}
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,.25);
+}
+.auth-card .card-body { padding: 2.5rem; }
+.auth-brand {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.auth-brand .brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: var(--brand);
+    color: #fff;
+    font-size: 1.6rem;
+    margin-bottom: .75rem;
+}
+
+/* ---------- App shell ---------- */
+.app { display: flex; min-height: 100vh; }
+
+.sidebar {
+    width: var(--sidebar-width);
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    position: fixed;
+    inset: 0 auto 0 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 1030;
+    transition: transform .25s ease;
+}
+[data-bs-theme="dark"] .sidebar {
+    background: #1e293b;
+    border-right-color: #334155;
+}
+
+.sidebar-brand {
+    height: var(--topbar-height);
+    padding: 0 1.25rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e5e7eb;
+}
+[data-bs-theme="dark"] .sidebar-brand { border-bottom-color: #334155; }
+.sidebar-brand .brand-icon {
+    width: 36px; height: 36px;
+    background: var(--brand);
+    color: #fff;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.sidebar-brand .brand-text {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #111827;
+}
+[data-bs-theme="dark"] .sidebar-brand .brand-text { color: #f1f5f9; }
+
+.sidebar-nav { padding: 1rem .75rem; overflow-y: auto; flex: 1; }
+.nav-section {
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #9ca3af;
+    margin: 1rem .75rem .25rem;
+}
+.sidebar-nav .nav-link {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .6rem .9rem;
+    border-radius: .5rem;
+    color: #4b5563;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+.sidebar-nav .nav-link:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+.sidebar-nav .nav-link.active {
+    background: var(--brand);
+    color: #fff;
+}
+.sidebar-nav .nav-link.active:hover { background: var(--brand-dark); }
+.sidebar-nav .nav-link i { font-size: 1.05rem; width: 1.25rem; }
+[data-bs-theme="dark"] .sidebar-nav .nav-link { color: #cbd5e1; }
+[data-bs-theme="dark"] .sidebar-nav .nav-link:hover {
+    background: #334155; color: #fff;
+}
+
+/* ---------- Main column ---------- */
+.app-main {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+.topbar {
+    height: var(--topbar-height);
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    position: sticky; top: 0; z-index: 1020;
+}
+[data-bs-theme="dark"] .topbar {
+    background: #1e293b;
+    border-bottom-color: #334155;
+}
+.topbar-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0;
+    color: #111827;
+}
+[data-bs-theme="dark"] .topbar-title { color: #f1f5f9; }
+
+.app-content { padding: 1.5rem; flex: 1; }
+.app-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    color: #6b7280;
+    background: #fff;
+}
+[data-bs-theme="dark"] .app-footer {
+    background: #1e293b;
+    border-top-color: #334155;
+    color: #94a3b8;
+}
+
+/* ---------- Cards & stats ---------- */
+.card {
+    border: 0;
+    border-radius: .75rem;
+    box-shadow: var(--card-shadow);
+}
+[data-bs-theme="dark"] .card {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+.stat-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+}
+.stat-card > div:not(.stat-icon) {
+    min-width: 0;
+    flex: 1;
+}
+.stat-card .stat-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: #fff;
+    flex-shrink: 0;
+}
+.stat-card .stat-label {
+    color: #6b7280;
+    font-size: .85rem;
+    margin: 0;
+    line-height: 1.2;
+}
+.stat-card .stat-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+    color: #111827;
+    line-height: 1.2;
+    word-break: break-word;
+}
+[data-bs-theme="dark"] .stat-card .stat-label { color: #94a3b8; }
+[data-bs-theme="dark"] .stat-card .stat-value { color: #f1f5f9; }
+
+.bg-indigo  { background: #4f46e5; }
+.bg-emerald { background: #10b981; }
+.bg-amber   { background: #f59e0b; }
+.bg-rose    { background: #f43f5e; }
+
+/* ---------- Tables ---------- */
+.table thead th {
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: #6b7280;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+[data-bs-theme="dark"] .table thead th {
+    background: #0f172a;
+    color: #94a3b8;
+    border-bottom-color: #334155;
+}
+.table td { vertical-align: middle; }
+
+/* ---------- Badges ---------- */
+.badge.role-admin   { background:#4f46e5; }
+.badge.role-editor  { background:#0ea5e9; }
+.badge.role-user    { background:#6b7280; }
+.badge.status-active   { background:#10b981; }
+.badge.status-inactive { background:#9ca3af; }
+
+/* ---------- Sidebar backdrop (mobile) ---------- */
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, .5);
+    z-index: 1029;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+.sidebar-backdrop.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ---------- Topbar overflow safety ---------- */
+.topbar-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991.98px) {
+    .sidebar { transform: translateX(-100%); box-shadow: 0 0 30px rgba(0,0,0,.2); }
+    .sidebar.open { transform: translateX(0); }
+    .app-main { margin-left: 0; }
+    .topbar { padding: 0 1rem; }
+    .app-content { padding: 1rem; }
+    .app-footer { padding: .75rem 1rem; }
+}
+
+@media (max-width: 575.98px) {
+    .topbar-title  { font-size: 1rem; }
+    .app-content   { padding: .75rem; }
+    .stat-card     { padding: 1rem; gap: .75rem; }
+    .stat-card .stat-icon { width: 44px; height: 44px; font-size: 1.15rem; border-radius: 10px; }
+    .stat-card .stat-value { font-size: 1.3rem; }
+    .stat-card .stat-label { font-size: .78rem; }
+    .card-body     { padding: 1rem; }
+    .card-title    { font-size: 1rem; }
+    /* Hide username next to avatar on the smallest screens (icon still works) */
+    .topbar .dropdown .btn { padding: .25rem .5rem; }
+}
+
+/* ---------- Auth pages on small screens ---------- */
+@media (max-width: 575.98px) {
+    .auth-card .card-body { padding: 1.5rem; }
+    .auth-brand .brand-icon { width: 48px; height: 48px; font-size: 1.4rem; }
+}

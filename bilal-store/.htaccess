@@ -1,0 +1,7 @@
+# Disable directory listings.
+Options -Indexes
+
+# Default file.
+DirectoryIndex index.php
+
+# Pretty-error page suppression in production is up to you.

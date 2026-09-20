@@ -1,0 +1,52 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE / editor configs
+.idea/
+.vscode/
+.fleet/
+*.sublime-workspace
+*.sublime-project
+
+# Logs
+*.log
+error_log
+access_log
+
+# User uploads — these are runtime, not source.
+# Keep the folder structure with .gitkeep files.
+assets/uploads/*
+!assets/uploads/.gitkeep
+!assets/uploads/products/
+assets/uploads/products/*
+!assets/uploads/products/.gitkeep
+
+# Local-only PHP files (e.g. quick scratch scripts)
+scratch.php
+test.php
+*.bak
+*.orig
+
+# Composer (in case anyone adds it later)
+/vendor/
+composer.lock
+
+# Node (in case anyone adds it later)
+/node_modules/
+package-lock.json
+yarn.lock
+
+# Environment overrides — if you ever switch to a .env-style setup,
+# don't commit the real one.
+.env
+.env.local
+config/config.local.php
+
+# One-time bootstrap scripts. Re-add locally if you need to re-install.
+admin/install.php
+admin/migrate.php
+.env
