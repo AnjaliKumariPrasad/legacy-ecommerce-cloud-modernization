@@ -252,11 +252,15 @@ Jenkins Successful Pipeline
 
 ## Repository Structure
 
+## Repository Structure
+
 ```text
 legacy-ecommerce-cloud-modernization/
 │
 ├── Jenkinsfile
-├── screenshots/
+├── docs/
+│   ├── architecture.png
+│   └── screenshots/
 │       ├── aws-infrastructure.png
 │       ├── rds-database.png
 │       ├── ecr-repository.png
@@ -279,41 +283,3 @@ legacy-ecommerce-cloud-modernization/
 └── app-infrastucture/
     ├── terraform/
     └── ansible/
-
-'''text
-
-```markdown
-## Final Result
-
-The legacy application now follows a repeatable deployment workflow:
-
-```text
-GitHub
-   |
-   v
-Jenkins
-   |
-   v
-Docker
-   |
-   v
-ECR
-   |
-   v
-EC2
-   |
-   +--> RDS
-   |
-   +--> S3
-   |
-   +--> CloudWatch
-             |
-             v
-            SNS
-
-'''text
-
-
-Terraform manages the infrastructure, Ansible manages server configuration, and Jenkins automates application delivery.
-
-The result is a repeatable source-to-deployment workflow with infrastructure automation, security controls, and operational monitoring.
